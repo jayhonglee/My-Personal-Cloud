@@ -572,6 +572,12 @@ export default function Home() {
                         placeholder="your@email.com"
                         required
                       />
+                      <input
+                        type="hidden"
+                        name="from"
+                        value="My Personal Cloud"
+                        aria-hidden="true"
+                      />
                       <button
                         type="submit"
                         className="absolute right-2.5 p-2.5 text-[var(--primary)] hover:opacity-75 transition-opacity"
