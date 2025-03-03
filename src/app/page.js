@@ -21,6 +21,34 @@ export default function Home() {
   const handleNavClick = (elementId) => {
     setIsMenuOpen(false);
     document.getElementById(elementId).scrollIntoView({ behavior: "smooth" });
+    // Track navigation clicks
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "navigation_click", {
+        event_category: "Navigation",
+        event_label: elementId,
+      });
+    }
+  };
+
+  const handleEarlyAccessClick = () => {
+    document.getElementById("contact").scrollIntoView({ behavior: "smooth" });
+    // Track early access button clicks
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "early_access_click", {
+        event_category: "CTA",
+        event_label: "Early Access Button",
+      });
+    }
+  };
+
+  const handleFormSubmit = (e) => {
+    // Track form submissions
+    if (typeof window !== "undefined" && window.gtag) {
+      window.gtag("event", "form_submit", {
+        event_category: "Form",
+        event_label: "Contact Form",
+      });
+    }
   };
 
   return (
@@ -157,11 +185,7 @@ export default function Home() {
               </p>
               <button
                 className="bg-gradient-to-tr from-[#18C8FF] to-[#933FFE] text-white px-8 py-3 rounded-lg hover:opacity-90 transition-opacity border border-[#18C8FF] font-bold shadow-lg cursor-pointer"
-                onClick={() =>
-                  document
-                    .getElementById("contact")
-                    .scrollIntoView({ behavior: "smooth" })
-                }
+                onClick={handleEarlyAccessClick}
               >
                 Join Early Access
               </button>
@@ -484,11 +508,7 @@ export default function Home() {
                     <div className="p-6 text-center bg-white/5">
                       <button
                         className="px-8 py-3 rounded-lg bg-gradient-to-tr from-[#18C8FF] to-[#933FFE] text-white hover:opacity-90 transition-opacity text-lg border border-[#18C8FF] font-bold cursor-pointer"
-                        onClick={() =>
-                          document
-                            .getElementById("contact")
-                            .scrollIntoView({ behavior: "smooth" })
-                        }
+                        onClick={handleEarlyAccessClick}
                       >
                         Get Early Access
                       </button>
@@ -517,11 +537,7 @@ export default function Home() {
                 </p>
                 <button
                   className="bg-gradient-to-tr from-[#18C8FF] to-[#933FFE] text-white px-8 py-3 rounded-lg hover:opacity-90 transition-opacity md:block hidden border border-[#18C8FF] font-bold cursor-pointer"
-                  onClick={() =>
-                    document
-                      .getElementById("contact")
-                      .scrollIntoView({ behavior: "smooth" })
-                  }
+                  onClick={handleEarlyAccessClick}
                 >
                   Get Early Access
                 </button>
@@ -557,6 +573,7 @@ export default function Home() {
                   action="https://api.web3forms.com/submit"
                   method="POST"
                   className="max-w-md mx-auto"
+                  onSubmit={handleFormSubmit}
                 >
                   <input
                     type="hidden"
